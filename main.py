@@ -10,7 +10,6 @@ class CircleApp(QMainWindow):
         super().__init__()
         self.setGeometry(0, 0, 362, 494)
         self.setWindowTitle("Circle Drawer")
-
         self.pushButton = QtWidgets.QPushButton("Add Circle", self)
         self.pushButton.setGeometry(40, 390, 271, 41)
         self.pushButton.clicked.connect(self.add_circle)
