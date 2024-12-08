@@ -1,38 +1,28 @@
 import sys
-import random
+import sqlite3
 from PyQt6 import QtWidgets
-from PyQt6.QtWidgets import QMainWindow, QApplication
-from PyQt6.QtGui import QPainter, QColor
+from PyQt6 import uic
 
 
-class CircleApp(QMainWindow):
+class CoffeeApp(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setGeometry(0, 0, 362, 494)
-        self.setWindowTitle("Circle Drawer")
-        self.pushButton = QtWidgets.QPushButton("Add Circle", self)
-        self.pushButton.setGeometry(40, 390, 271, 41)
-        self.pushButton.clicked.connect(self.add_circle)
+        uic.loadUi("main.ui", self)
+        self.load_data()
 
-        self.circles = []
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        for circle in self.circles:
-            painter.setBrush(circle[3])
-            painter.drawEllipse(circle[0], circle[1], circle[2], circle[2])
-
-    def add_circle(self):
-        diameter = random.randint(20, 100)
-        x = random.randint(0, self.width() - diameter)
-        y = random.randint(0, self.height() - diameter)
-        color = QColor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-        self.circles.append((x, y, diameter, color))
-        self.update()
+    def load_data(self):
+        conn = sqlite3.connect("database.sqlite")
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM coffee")
+        coffees = cursor.fetchall()
+        for coffee in coffees:
+            self.listWidget.addItem(f"ID: {coffee[0]}, Name: {coffee[1]}, Roast: {coffee[2]}, Type: "
+                                    f"{coffee[3]}, Flavor: {coffee[4]}, Price: {coffee[5]}, Volume: {coffee[6]}")
+        conn.close()
 
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = CircleApp()
+    app = QtWidgets.QApplication(sys.argv)
+    window = CoffeeApp()
     window.show()
     sys.exit(app.exec())

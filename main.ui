@@ -6,25 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>340</width>
-    <height>530</height>
+    <width>538</width>
+    <height>518</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QListWidget" name="listWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>390</y>
-      <width>271</width>
-      <height>41</height>
+      <x>20</x>
+      <y>10</y>
+      <width>501</width>
+      <height>481</height>
      </rect>
-    </property>
-    <property name="text">
-     <string>Add Circle</string>
     </property>
    </widget>
   </widget>
